@@ -1,42 +1,42 @@
 import React, { Component } from 'react'
 import { Card, CardImg, CardBody, CardTitle, CardText, CardHeader } from 'reactstrap'
 
-export class DishDetailComponent extends Component {
+const DishDetailComponent = (props) => {
 
-
-  render() {
-
-    if (this.props.dishSelected != null) {
-      return (
+  if (props.dishSelected != null) {
+    return (
+      <div className="container">
         <div className='row'>
           <div className="col-12 col-md-5 m-1">
             <Card>
-              <CardImg top src={this.props.dishSelected.image} alt={this.props.dishSelected.name} />
+              <CardImg top src={props.dishSelected.image} alt={props.dishSelected.name} />
               <CardBody>
-                <CardTitle>{this.props.dishSelected.name}</CardTitle>
-                <CardText>{this.props.dishSelected.description}</CardText>
+                <CardTitle>{props.dishSelected.name}</CardTitle>
+                <CardText>{props.dishSelected.description}</CardText>
               </CardBody>
             </Card>
           </div>
           <div className="col-12 col-md-5 m-1">
-               <h2>Comments</h2>
-                {this.props.dishSelected.comments.map(comment => (
-                  <ul  className="list-unstyled">
-                  <li>{comment.comment}</li>
-                  <li>{`-- ${comment.author}, ${comment.date}`}</li>
-                  </ul>
-                  ))}
+            <h2>Comments</h2>
+            {props.dishSelected.comments.map(comment => (
+              <ul className="list-unstyled">
+                <li>{comment.comment}</li>
+                <li>{`-- ${comment.author}`}, {new Intl.DateTimeFormat('en-US',{year:"numeric", month:'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
+              </ul>
+            ))}
           </div>
         </div>
+      </div>
 
-      )
-    }
-    else {
-      return (
-        <div></div>
-      )
-    }
+
+    )
   }
+  else {
+    return (
+      <div></div>
+    )
+  }
+
 }
 
 export default DishDetailComponent
