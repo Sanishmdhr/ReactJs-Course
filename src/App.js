@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import Main from './components/MainComponent';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
 
-render(){
-  return (
-    <div className="App">
-    {/* 
-      1. install bootstrap, reactstrap and react-popper 
-      2. we will link bootstrap in our project 
-      3. create a basic navbar
-    
-     */}
-      <Main/>
-    </div>
-  );
-}
-  
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Main />
+        </div>
+      </Router>
+    );
+  }
+
 }
 
 export default App;
