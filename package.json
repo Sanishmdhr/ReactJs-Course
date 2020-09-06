@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "add": "^2.0.6",
     "bootstrap": "^4.5.2",
     "install": "^0.13.0",
     "react": "^16.13.1",
@@ -13,7 +14,8 @@
     "react-dom": "^16.13.1",
     "react-popper": "^2.2.3",
     "react-scripts": "3.4.3",
-    "reactstrap": "^8.5.1"
+    "reactstrap": "^8.5.1",
+    "yarn": "^1.22.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,5 +37,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "bootstrap-social": "^5.1.1",
+    "font-awesome": "^4.7.0"
   }
 }

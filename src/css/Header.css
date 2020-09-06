@@ -1,0 +1,15 @@
+.header__row{
+  margin: 0px auto;
+  padding: 0px auto ;
+}
+
+.jumbotron{
+  padding:70px 30px;
+  margin: 0px auto;
+  background-color:#9575cd !important;
+  color: floralwhite;
+}
+
+.navbar-dark{
+  background-color: #512da8;
+}
