@@ -1,11 +1,13 @@
 import React from 'react'
-import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 const RenderItem = ({ dish }) => {
+  console.log(dish);
   return (
-    <Card>
-      <CardImg top src={dish.image} alt={dish.name} />
+    <Card key={dish.id}>
+      <CardImg top src={`../${dish.image}`} alt={dish.name} />
       <CardBody>
         <CardTitle>{dish.name}</CardTitle>
         <CardText>{dish.description}</CardText>
@@ -14,12 +16,12 @@ const RenderItem = ({ dish }) => {
   )
 }
 
-const RenderComment = ({ dish }) => {
+const RenderComment = ({ comments }) => {
   return (
-    <div>
+    <div >
       <h2>Comments</h2>
-      {dish.comments.map(comment => (
-        <ul className="list-unstyled">
+      {comments.map(comment => (
+        <ul className="list-unstyled" >
           <li>{comment.comment}</li>
           <li>{`-- ${comment.author}`}, {new Intl.DateTimeFormat('en-US', { year: "numeric", month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
         </ul>
@@ -29,28 +31,33 @@ const RenderComment = ({ dish }) => {
 }
 
 const DishDetailComponent = (props) => {
-
-  if (props.dishSelected != null) {
     return (
       <div className="container">
+      <div className='row'>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/Menu">Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+        </Breadcrumb>
+        <div className="col-12">
+          <h3>{props.dish.name}</h3>
+          <hr />
+        </div>
+      </div>
         <div className='row'>
           <div className="col-12 col-md-5 m-1">
-            <RenderItem dish={props.dishSelected} />
+            <RenderItem dish={props.dish} />
           </div>
           <div className="col-12 col-md-5 m-1">
-            <RenderComment dish={props.dishSelected} />
+            <RenderComment comments={props.comments} />
           </div>
         </div>
       </div>
 
 
     )
-  }
-  else {
-    return (
-      <div></div>
-    )
-  }
+  
 
 }
 

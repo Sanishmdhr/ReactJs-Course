@@ -1,9 +1,23 @@
 import React from 'react';
 import '../css/Contactus.css';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 function ContactUsComponent() {
   return (
     <div className="container">
+      <div className='row'>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/Home">Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>Contact Us</BreadcrumbItem>
+        </Breadcrumb>
+        <div className="col-12">
+          <h3>Contact Us</h3>
+          <hr />
+        </div>
+      </div>
       <div class="row contactUS__row">
         <div class="col-12">
           <h3>Location Information</h3>
