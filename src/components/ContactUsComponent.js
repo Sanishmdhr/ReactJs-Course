@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/Contactus.css';
 import { Breadcrumb, BreadcrumbItem, Form, FormGroup, Label, Input, Col, Button, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {Control, LocalForm, Errors} from 'react-redux-form';
 
 class ContactUsComponent extends Component {
 
@@ -24,71 +25,75 @@ class ContactUsComponent extends Component {
       }
     }
 
-    this.handleInput = this.handleInput.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
+    //this.handleInput = this.handleInput.bind(this);
+    // this.onFormSubmit = this.onFormSubmit.bind(this);
+    // this.handleBlur = this.handleBlur.bind(this);
   }
 
-  handleInput(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value
-    })
-  }
+  // handleInput(event) {
+  //   const target = event.target;
+  //   const value = target.type === 'checkbox' ? target.checked : target.value;
+  //   const name = target.name;
+  //   this.setState({
+  //     [name]: value
+  //   })
+  // }
 
-  handleBlur = (field) => (event) => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true }
-    })
-  }
+  // handleBlur = (field) => (event) => {
+  //   this.setState({
+  //     touched: { ...this.state.touched, [field]: true }
+  //   })
+  // }
 
-  validate(firstname, lastname, telnum, email) {
-    const error = {
-      firstname: '',
-      lastname: '',
-      telnum: '',
-      email: ''
-    };
+  // validate(firstname, lastname, telnum, email) {
+  //   const error = {
+  //     firstname: '',
+  //     lastname: '',
+  //     telnum: '',
+  //     email: ''
+  //   };
 
-    if (this.state.touched.firstname && firstname.length < 3)
-      error.firstname = "First Name Should be >= 3 characters";
-    else if (this.state.touched.firstname && firstname.length > 10)
-      error.firstname = "First Name Should be <=10 characters";
-
-
-    if (this.state.touched.lastname && lastname.length < 3)
-      error.lastname = "Last Name Should be >= 3 characters";
-    else if (this.state.touched.lastname && lastname.length > 10)
-      error.lastname = "Last Name Should be <=10 characters";
-
-    const reg = /^\d+$/;
-    if (this.state.touched.telnum && !reg.test(telnum))
-      error.telnum = "Tel. number should contain only numbers";
+  //   if (this.state.touched.firstname && firstname.length < 3)
+  //     error.firstname = "First Name Should be >= 3 characters";
+  //   else if (this.state.touched.firstname && firstname.length > 10)
+  //     error.firstname = "First Name Should be <=10 characters";
 
 
-    if (this.state.touched.email && email.split('').filter(x => x === "@").length !== 1)
-      error.email = 'Email should contain a @';
+  //   if (this.state.touched.lastname && lastname.length < 3)
+  //     error.lastname = "Last Name Should be >= 3 characters";
+  //   else if (this.state.touched.lastname && lastname.length > 10)
+  //     error.lastname = "Last Name Should be <=10 characters";
 
-    return error;
-  }
+  //   const reg = /^\d+$/;
+  //   if (this.state.touched.telnum && !reg.test(telnum))
+  //     error.telnum = "Tel. number should contain only numbers";
 
-  onFormSubmit(event) {
-    event.preventDefault();
-    alert(`
-      firstname:${this.state.firstname},
-      lastname:${this.state.lastname},
-      telnum:${this.state.telnum},
-      email:${this.state.email},
-      agree:${this.state.agree},
-      contactType:${this.state.contactType},
-      message:${this.state.message}
-      `)
+
+  //   if (this.state.touched.email && email.split('').filter(x => x === "@").length !== 1)
+  //     error.email = 'Email should contain a @';
+
+  //   return error;
+  // }
+
+  // onFormSubmit(event) {
+  //   event.preventDefault();
+  //   alert(`
+  //     firstname:${this.state.firstname},
+  //     lastname:${this.state.lastname},
+  //     telnum:${this.state.telnum},
+  //     email:${this.state.email},
+  //     agree:${this.state.agree},
+  //     contactType:${this.state.contactType},
+  //     message:${this.state.message}
+  //     `)
+  // }
+
+  handleSubmit(values){
+    alert('Current State is:' + JSON.stringify(values));
   }
 
   render() {
-    const errors = this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email);
+    // const errors = this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email);
 
     return (
       <div className="container">
@@ -136,7 +141,7 @@ class ContactUsComponent extends Component {
             <h3>Send Us Your Feedback</h3>
           </div>
           <div className="col-12 col-md-9">
-            <Form onSubmit={this.onFormSubmit}>
+            {/* <Form onSubmit={this.onFormSubmit}>
               <FormGroup row>
                 <Label htmlFor='firstname' md={2}>First Name</Label>
                 <Col md={10}>
@@ -256,7 +261,77 @@ class ContactUsComponent extends Component {
                 </Col>
               </FormGroup>
 
-            </Form>
+            </Form> */}
+              <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                <div className='form-group row'>
+                  <Label  md={2}>First Name</Label>
+                  <Col md={10}>
+                    <Control.text model='.firstname' id="firstname"
+                    name="firstname" placeholder="Enter Your First Name"
+                    className="form-control"/> 
+                  </Col>
+                </div>
+                <div className='form-group row'>
+                  <Label md={2}>Last Name</Label>
+                  <Col md={10}>
+                    <Control.text model='.lastname' id="lastname"
+                    name="lastname" placeholder="Enter Your Last Name"
+                    className="form-control"/> 
+                  </Col>
+                </div>
+                <div className='form-group row'>
+                  <Label md={2}>Contact Tel.</Label>
+                  <Col md={10}>
+                    <Control.text model='.telnum' id="telnum"
+                    name="telnum" placeholder="Enter Your Contact Number"
+                    className="form-control"/> 
+                  </Col>
+                </div>
+                <div className='form-group row'>
+                  <Label md={2}>Email</Label>
+                  <Col md={10}>
+                    <Control.text model='.email' id="email"
+                    name="email" placeholder="Enter Your Email"
+                    className="form-control"/> 
+                  </Col>
+                </div>
+                <div className='form-group row'>
+                  <Col md={{size:6, offset:2}}>
+                      <div className='form-check'>
+                        <Label check>
+                            <Control.checkbox model=".agree" name='agree'
+                            className="form-check-input"/>
+                            <strong>May we contact you ?</strong>
+                        </Label>
+                      </div>
+                  </Col>
+                  <Col md={{size:3, offset:1}}>
+                      <Control.select model=".contactType" name="contactType"
+                      className="form-control">
+                        <option>Tel.</option>
+                        <option>Email</option>
+                      </Control.select>
+
+                  </Col>
+                </div>
+                <div className="form-group row">
+                  <Label md={2}>Your Feedback</Label>
+                  <Col md={10}>
+                    <Control.textarea model=".message" id="message"
+                    name='message'
+                    rows="8"
+                    className='form-control'/>
+                  </Col>
+                </div>
+                <div className="form-group row">
+                  <Col md={{size:10, offset:2}}>
+                   <Button type='submit' color='primary'>
+                     Send Feedback
+                   </Button>
+                  </Col>
+                </div>
+              </LocalForm>
+
           </div>
         </div>
 
