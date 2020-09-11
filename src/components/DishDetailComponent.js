@@ -1,6 +1,7 @@
 import React from 'react'
-import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import CommentForm from './CommentForm';
 
 
 const RenderItem = ({ dish }) => {
@@ -26,6 +27,7 @@ const RenderComment = ({ comments }) => {
           <li>{`-- ${comment.author}`}, {new Intl.DateTimeFormat('en-US', { year: "numeric", month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
         </ul>
       ))}
+     
     </div>
   )
 }
@@ -51,6 +53,7 @@ const DishDetailComponent = (props) => {
           </div>
           <div className="col-12 col-md-5 m-1">
             <RenderComment comments={props.comments} />
+            <CommentForm/>
           </div>
         </div>
       </div>
