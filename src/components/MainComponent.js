@@ -14,7 +14,7 @@ import AboutUs from './AboutUsComponent';
 
 //store
 import {connect} from 'react-redux';
-
+import {addComment} from '../redux/ActionCreators';
 //mapStateToProps -> takes the current state from the store and converts it into a prop to be used by the respective component
 
 const mapStateToProps = state => {
@@ -25,6 +25,11 @@ const mapStateToProps = state => {
     leaders:state.leaders
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+})
+
 
 class Main extends Component {
 
@@ -63,7 +68,7 @@ class Main extends Component {
         // filter out the specific dish according to the id parameter and send the single dish
         <DishDetailComponent dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
         comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
-
+        addComment={this.props.addComment}
         />
       )
 
@@ -88,4 +93,4 @@ class Main extends Component {
 }
 
 //store has been connected to our component
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

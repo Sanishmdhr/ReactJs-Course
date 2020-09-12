@@ -6,7 +6,7 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-function CommentForm() {
+function CommentForm(props) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,7 +15,7 @@ function CommentForm() {
   }
 
   const handleSubmit= (values) => {
-    alert("Current state is:" + JSON.stringify(values));
+    props.addComment(props.dishId, values.rating, values.name, values.comment);
     toggleModal();
   }
 
