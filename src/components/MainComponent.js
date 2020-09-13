@@ -15,6 +15,7 @@ import AboutUs from './AboutUsComponent';
 //store
 import { connect } from 'react-redux';
 import { addComment, fetchDishes } from '../redux/ActionCreators';
+import {actions} from 'react-redux-form';
 //mapStateToProps -> takes the current state from the store and converts it into a prop to be used by the respective component
 
 const mapStateToProps = state => {
@@ -28,7 +29,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => { dispatch(fetchDishes()) }
+  fetchDishes: () => { dispatch(fetchDishes()) },
+  resetFeedbackForm: () => {dispatch(actions.reset('feedback'))}
 })
 
 
@@ -94,7 +96,7 @@ class Main extends Component {
               errMess={this.props.dishes.errmess} 
               onClick={(dishId) => this.onDishSelect(dishId)} />} />
           <Route exact path="/menu/:dishId" component={DishDetail} />
-          <Route path="/contactus" component={() => <ContactUs />} />
+          <Route path="/contactus" component={() => <ContactUs resetForm={this.props.resetFeedbackForm}/>} />
           <Route path="/aboutus" component={() => <AboutUs leaders={this.props.leaders} />} />
 
           <Redirect to='/home' />

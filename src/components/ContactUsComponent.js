@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../css/Contactus.css';
-import { Breadcrumb, BreadcrumbItem, Form, FormGroup, Label, Input, Col, Button, FormFeedback } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,  Label, Button,Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -96,6 +96,7 @@ class ContactUsComponent extends Component {
 
   handleSubmit(values) {
     alert('Current State is:' + JSON.stringify(values));
+    this.props.resetForm();
   }
 
   render() {
@@ -268,7 +269,7 @@ class ContactUsComponent extends Component {
               </FormGroup>
 
             </Form> */}
-            <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+            <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
               <div className='form-group row'>
                 <Label md={2}>First Name</Label>
                 <Col md={10}>
@@ -393,7 +394,7 @@ class ContactUsComponent extends Component {
                    </Button>
                 </Col>
               </div>
-            </LocalForm>
+            </Form>
 
           </div>
         </div>
