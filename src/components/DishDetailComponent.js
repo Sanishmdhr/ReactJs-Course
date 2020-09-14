@@ -4,17 +4,26 @@ import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import Loading from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
 const RenderItem = ({ dish }) => {
   console.log(dish);
   return (
-    <Card key={dish.id}>
-      <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-      <CardBody>
-        <CardTitle>{dish.name}</CardTitle>
-        <CardText>{dish.description}</CardText>
-      </CardBody>
-    </Card>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: 'scale(0.5) transtaleY(-50%)'
+      }}
+    >
+      <Card key={dish.id}>
+        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </FadeTransform>
   )
 }
 
@@ -22,12 +31,18 @@ const RenderComment = ({ comments, dishId, postComment }) => {
   return (
     <div >
       <h2>Comments</h2>
-      {comments.map(comment => (
-        <ul className="list-unstyled" >
-          <li>{comment.comment}</li>
-          <li>{`-- ${comment.author}`}, {new Intl.DateTimeFormat('en-US', { year: "numeric", month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
-        </ul>
-      ))}
+      <Stagger in>
+        {comments.map(comment => (
+          <Fade in>
+            <ul className="list-unstyled" >
+              <li>{comment.comment}</li>
+              <li>{`-- ${comment.author}`}, {new Intl.DateTimeFormat('en-US', { year: "numeric", month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
+            </ul>
+          </Fade>
+
+        ))}
+      </Stagger>
+
       {/* dishId={dishId} dishdetailComponent -> dishId stored in a new var/prop i.e dishId */}
       <CommentForm dishId={dishId} postComment={postComment} />
 
