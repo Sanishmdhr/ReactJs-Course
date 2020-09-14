@@ -15,7 +15,7 @@ function CommentForm(props) {
   }
 
   const handleSubmit= (values) => {
-    props.addComment(props.dishId, values.rating, values.name, values.comment);
+    props.postComment(props.dishId, values.rating, values.name, values.comment);
     toggleModal();
   }
 

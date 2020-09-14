@@ -18,7 +18,7 @@ const RenderItem = ({ dish }) => {
   )
 }
 
-const RenderComment = ({ comments, dishId, addComment }) => {
+const RenderComment = ({ comments, dishId, postComment }) => {
   return (
     <div >
       <h2>Comments</h2>
@@ -29,7 +29,7 @@ const RenderComment = ({ comments, dishId, addComment }) => {
         </ul>
       ))}
       {/* dishId={dishId} dishdetailComponent -> dishId stored in a new var/prop i.e dishId */}
-      <CommentForm dishId={dishId} addComment={addComment} />
+      <CommentForm dishId={dishId} postComment={postComment} />
 
     </div>
   )
@@ -67,7 +67,7 @@ const DishDetailComponent = (props) => {
             <RenderItem dish={props.dish} />
           </div>
           <div className="col-12 col-md-5 m-1">
-            <RenderComment comments={props.comments} dishId={props.dish.id} addComment={props.addComment} />
+            <RenderComment comments={props.comments} dishId={props.dish.id} postComment={props.postComment} />
           </div>
         </div>
       </div>
