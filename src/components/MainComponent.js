@@ -14,7 +14,7 @@ import AboutUs from './AboutUsComponent';
 
 //store
 import { connect } from 'react-redux';
-import { fetchDishes, fetchComments, fetchPromos, postComment } from '../redux/ActionCreators';
+import { fetchDishes, fetchComments, fetchPromos, postComment, fetchLeaders, addFeedback } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 //mapStateToProps -> takes the current state from the store and converts it into a prop to be used by the respective component
 
@@ -32,7 +32,9 @@ const mapDispatchToProps = dispatch => ({
   fetchDishes: () => { dispatch(fetchDishes()) },
   resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
   fetchComments: () => { dispatch(fetchComments()) },
-  fetchPromos: () => { dispatch(fetchPromos()) }
+  fetchPromos: () => { dispatch(fetchPromos()) },
+  fetchLeaders: () => { dispatch(fetchLeaders()) },
+  addFeedback:(firstname, lastname, telnum, email, agree, contactType, message) => dispatch(addFeedback(firstname, lastname, telnum, email, agree, contactType, message))
 
 })
 
@@ -58,6 +60,8 @@ class Main extends Component {
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
+    this.props.fetchLeaders();
+
 
   }
 
@@ -75,8 +79,9 @@ class Main extends Component {
           promosLoading={this.props.promotions.isLoading}
           promosErrMess={this.props.promotions.errMess}
           //featured leader
-          leader={this.props.leaders.filter((leader) => leader.featured)[0]}
-
+          leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+          leadersLoading={this.props.leaders.isLoading}
+          leadersErrMess={this.props.leaders.errMess}
         />
       )
     }
@@ -107,8 +112,11 @@ class Main extends Component {
                   errMess={this.props.dishes.errmess}
                   onClick={(dishId) => this.onDishSelect(dishId)} />} />
               <Route exact path="/menu/:dishId" component={DishDetail} />
-              <Route path="/contactus" component={() => <ContactUs resetForm={this.props.resetFeedbackForm} />} />
-              <Route path="/aboutus" component={() => <AboutUs leaders={this.props.leaders} />} />
+              <Route path="/contactus" component={() => <ContactUs resetForm={this.props.resetFeedbackForm} addFeedback = {this.props.addFeedback} />} />
+              <Route path="/aboutus" component={() => <AboutUs leaders={this.props.leaders.leaders}
+                leadersLoading={this.props.leaders.isLoading}
+                leadersErrMess={this.props.leaders.errMess}
+              />} />
               <Redirect to='/home' />
             </Switch>
           </CSSTransition>
